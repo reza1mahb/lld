@@ -87,6 +87,8 @@ TargetInfo *elf::getTarget() {
     if (Config->EKind == ELF32LEKind)
       return getX32TargetInfo();
     return getX86_64TargetInfo();
+  case EM_BPF:
+    return getBPFTargetInfo();
   }
   llvm_unreachable("unknown target machine");
 }
