@@ -33,7 +33,7 @@ public:
 
 BPF::BPF() { 
   NoneRel = R_BPF_NONE;
-  RelativeRel = R_BPF_RELATIVE;
+  RelativeRel = R_BPF_64_RELATIVE;
 }
 
 RelExpr BPF::getRelExpr(RelType Type, const Symbol &S,
