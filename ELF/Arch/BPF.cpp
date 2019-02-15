@@ -40,6 +40,7 @@ RelExpr BPF::getRelExpr(RelType Type, const Symbol &S,
                         const uint8_t *Loc) const {
   switch (Type) {
     case R_BPF_64_32:
+      return R_PC;
     case R_BPF_64_64:
       return R_ABS;
     default:
@@ -52,9 +53,8 @@ RelExpr BPF::getRelExpr(RelType Type, const Symbol &S,
 void BPF::relocateOne(uint8_t *Loc, RelType Type, uint64_t Val) const {
   switch (Type) {
     case R_BPF_64_32: {
-      // Relocation of a symbol, should only be called for external symbols 
-      // of which the address is not yet known
-      error(getErrorLocation(Loc) + "Cannot relocate " + toString(Type));
+      // Relocation of a symbol
+      write32le(Loc + 4, ((Val - 8) / 8) & 0xFFFFFFFF);
       break;
     }
     case R_BPF_64_64: {  
